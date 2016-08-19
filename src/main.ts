@@ -3,24 +3,24 @@
 ///<reference path="instance.ts"/>
 ///<reference path="field.ts"/>
 ///<reference path="file_reader.ts"/>
+///<reference path="m3game.ts"/>
 
 var main: Main = null;
 
 class Main {
     private document: HTMLDocument;
     public canvasController: CanvasController;
-    private mapSize: Vector2;
     private interval: number;
     public renderer: Renderer;
     private instances: Array<Instance> = new Array<Instance>();
+    public m3game: M3Game;
 
     constructor() {
         this.document = document;
-        this.mapSize = new Vector2(8, 8);
         this.canvasController = new CanvasController(this.getCanvas("draw"));
         this.interval = setInterval(this.render.bind(this), 17);
         this.renderer = new Renderer(this.canvasController);
-        this.instanceCreate(new Field(this.getMapSize()));
+        this.m3game = new M3Game(1);
     }
 
     public render(): void {
@@ -41,7 +41,7 @@ class Main {
     }
 
     public getMapSize(): Vector2 {
-        return this.mapSize.copy();
+        return new Vector2(this.m3game.level.width(), this.m3game.level.height());
     }
 
     private getCanvas(id: string): HTMLCanvasElement {
@@ -66,4 +66,5 @@ class Main {
 
 window.onload = function () {
     main = new Main();
+    main.m3game.start();
 };

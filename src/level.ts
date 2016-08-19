@@ -41,7 +41,7 @@ class Level {
         }
     }
 
-    public field(): Grid<number> {
+    public field(): Grid<boolean> {
         return this._field.copy();
     }
 }

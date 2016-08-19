@@ -1,19 +1,24 @@
 ///<reference path="instance.ts"/>
 ///<reference path="utils/vector2.ts"/>
 ///<reference path="main.ts"/>
+///<reference path="utils/grid.ts"/>
 
 class Field extends Instance {
-    private gridSize: Vector2;
+    private _gridSize: Vector2;
+    private _field: Grid<number>;
 
-    constructor(gridSize: Vector2) {
+    constructor(gridSize: Vector2, field: Grid<number>) {
         super();
-        this.gridSize = gridSize.copy();
+        this._gridSize = gridSize.copy();
+        this._field = field.copy();
     }
 
     public render(): void {
-        for (var i: number = 0; i < this.gridSize.x; i++) {
-            for (var j: number = 0; j < this.gridSize.y; j++) {
-                main.renderer.strokeRect(i + .1, j + .1, .8, .8);
+        for (var i: number = 0; i < this._gridSize.x; i++) {
+            for (var j: number = 0; j < this._gridSize.y; j++) {
+                if (this._field.get(i, j) == 1) {
+                    main.renderer.strokeRect(i + .05, j + .05, .9, .9);
+                }
             }
         }
     }

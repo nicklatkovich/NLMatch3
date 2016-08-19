@@ -12,10 +12,10 @@ class M3Game {
     constructor(levelNumb: number) {
         this.levelNumb = levelNumb;
         this.levelDescription = FileTextReader.read("levels/lvl_" + this.levelNumb + ".lvl");
-        this.level = new Level(this.levelDescription);
+        this.level = new Level(this.levelDescription.slice());
     }
 
     public start(): void {
-        main.instanceCreate(new Field(new Vector2(this.level.width(), this.level.height())));
+        main.instanceCreate(new Field(new Vector2(this.level.width(), this.level.height()), this.level.field()));
     }
 }
